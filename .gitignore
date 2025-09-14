@@ -1,0 +1,124 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.staging
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Laravel
+/backend/vendor
+/backend/node_modules
+/backend/public/hot
+/backend/public/storage
+/backend/storage/*.key
+/backend/.env
+/backend/.env.backup
+/backend/.phpunit.result.cache
+/backend/Homestead.json
+/backend/Homestead.yaml
+/backend/npm-debug.log
+/backend/yarn-error.log
+
+# Flutter
+/frontend/.dart_tool/
+/frontend/.packages
+/frontend/build/
+/frontend/.flutter-plugins
+/frontend/.flutter-plugins-dependencies
+/frontend/.pub-cache/
+/frontend/.pub/
+/frontend/ios/Flutter/Generated.xcconfig
+/frontend/ios/Flutter/flutter_export_environment.sh
+/frontend/ios/ServiceDefinitions.json
+/frontend/ios/Runner/GeneratedPluginRegistrant.*
+/frontend/android/app/src/main/kotlin/com/example/gig_marketplace/BuildConfig.dart
+/frontend/android/key.properties
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# Build artifacts
+dist/
+build/
+*.min.js
+*.min.css
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploads and user content
+uploads/
+storage/app/public/
+
+# API Documentation
+/docs/build
+
+# Backup files
+*.bak
+*.backup
+
+# Certificate files
+*.pem
+*.crt
+*.key
+
+# Docker
+docker-compose.override.yml
