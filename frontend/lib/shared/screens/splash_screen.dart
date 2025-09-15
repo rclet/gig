@@ -56,11 +56,12 @@ class _SplashScreenState extends State<SplashScreen>
     _fadeController.forward();
     _scaleController.forward();
     
-    // Navigate after animations complete
+    // Wait for animations to complete, then trigger redirect
     await Future.delayed(const Duration(milliseconds: 3000));
     if (mounted) {
-      // The router will handle the actual navigation logic
-      context.go('/home');
+      // Trigger the router's redirect logic by going to a dummy route
+      // The router will automatically redirect based on auth state
+      context.go('/check-auth');
     }
   }
 

@@ -98,8 +98,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final isLoggedIn = StorageService.getAuthToken() != null;
       final isOnboardingCompleted = StorageService.isOnboardingCompleted();
       
-      // Handle splash screen redirect
-      if (state.matchedLocation == '/splash') {
+      // Handle splash screen redirect and check-auth route
+      if (state.matchedLocation == '/splash' || state.matchedLocation == '/check-auth') {
         if (!isOnboardingCompleted) {
           return '/onboarding';
         } else if (!isLoggedIn) {
@@ -113,7 +113,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       if (!isLoggedIn && 
           !state.matchedLocation.startsWith('/login') && 
           !state.matchedLocation.startsWith('/register') &&
-          !state.matchedLocation.startsWith('/onboarding')) {
+          !state.matchedLocation.startsWith('/onboarding') &&
+          !state.matchedLocation.startsWith('/splash')) {
         return '/login';
       }
 
