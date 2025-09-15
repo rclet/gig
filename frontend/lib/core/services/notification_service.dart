@@ -4,69 +4,93 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _localNotifications = 
       FlutterLocalNotificationsPlugin();
-  static final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  static FirebaseMessaging? _firebaseMessaging;
 
   static Future<void> init() async {
-    // Request permissions
-    await _requestPermissions();
-    
-    // Initialize local notifications
-    await _initializeLocalNotifications();
-    
-    // Initialize Firebase messaging
-    await _initializeFirebaseMessaging();
+    try {
+      // Initialize Firebase messaging if available
+      _firebaseMessaging = FirebaseMessaging.instance;
+      
+      // Request permissions
+      await _requestPermissions();
+      
+      // Initialize local notifications
+      await _initializeLocalNotifications();
+      
+      // Initialize Firebase messaging
+      await _initializeFirebaseMessaging();
+    } catch (e) {
+      print('NotificationService init error: $e');
+      // Continue without Firebase if it's not available
+    }
   }
 
   static Future<void> _requestPermissions() async {
-    // Request FCM permissions
-    NotificationSettings settings = await _firebaseMessaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
+    try {
+      if (_firebaseMessaging != null) {
+        // Request FCM permissions
+        NotificationSettings settings = await _firebaseMessaging!.requestPermission(
+          alert: true,
+          announcement: false,
+          badge: true,
+          carPlay: false,
+          criticalAlert: false,
+          provisional: false,
+          sound: true,
+        );
 
-    print('Notification permission: ${settings.authorizationStatus}');
+        print('Notification permission: ${settings.authorizationStatus}');
+      }
+    } catch (e) {
+      print('Permission request error: $e');
+    }
   }
 
   static Future<void> _initializeLocalNotifications() async {
-    const AndroidInitializationSettings androidSettings = 
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    
-    const DarwinInitializationSettings iosSettings = 
-        DarwinInitializationSettings(
-          requestSoundPermission: true,
-          requestBadgePermission: true,
-          requestAlertPermission: true,
-        );
+    try {
+      const AndroidInitializationSettings androidSettings = 
+          AndroidInitializationSettings('@mipmap/ic_launcher');
+      
+      const DarwinInitializationSettings iosSettings = 
+          DarwinInitializationSettings(
+            requestSoundPermission: true,
+            requestBadgePermission: true,
+            requestAlertPermission: true,
+          );
 
-    const InitializationSettings settings = InitializationSettings(
-      android: androidSettings,
-      iOS: iosSettings,
-    );
+      const InitializationSettings settings = InitializationSettings(
+        android: androidSettings,
+        iOS: iosSettings,
+      );
 
-    await _localNotifications.initialize(
-      settings,
-      onDidReceiveNotificationResponse: _onNotificationTapped,
-    );
+      await _localNotifications.initialize(
+        settings,
+        onDidReceiveNotificationResponse: _onNotificationTapped,
+      );
+    } catch (e) {
+      print('Local notifications init error: $e');
+    }
   }
 
   static Future<void> _initializeFirebaseMessaging() async {
-    // Get FCM token
-    String? token = await _firebaseMessaging.getToken();
-    print('FCM Token: $token');
+    try {
+      if (_firebaseMessaging != null) {
+        // Get FCM token
+        String? token = await _firebaseMessaging!.getToken();
+        print('FCM Token: $token');
 
-    // Handle foreground messages
-    FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
+        // Handle foreground messages
+        FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
 
-    // Handle background messages
-    FirebaseMessaging.onBackgroundMessage(_handleBackgroundMessage);
+        // Handle background messages
+        FirebaseMessaging.onBackgroundMessage(_handleBackgroundMessage);
 
-    // Handle notification opened app
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleNotificationOpenedApp);
+        // Handle notification opened app
+        FirebaseMessaging.onMessageOpenedApp.listen(_handleNotificationOpenedApp);
+      }
+    } catch (e) {
+      print('Firebase messaging init error: $e');
+    }
   }
 
   static void _onNotificationTapped(NotificationResponse response) {
@@ -99,39 +123,56 @@ class NotificationService {
     String? payload,
     int id = 0,
   }) async {
-    const AndroidNotificationDetails androidDetails = 
-        AndroidNotificationDetails(
-          'gig_marketplace_channel',
-          'Gig Marketplace',
-          channelDescription: 'Notifications for Gig Marketplace app',
-          importance: Importance.high,
-          priority: Priority.high,
-          showWhen: false,
-        );
+    try {
+      const AndroidNotificationDetails androidDetails = 
+          AndroidNotificationDetails(
+            'gig_marketplace_channel',
+            'Gig Marketplace',
+            channelDescription: 'Notifications for Gig Marketplace app',
+            importance: Importance.high,
+            priority: Priority.high,
+            showWhen: false,
+          );
 
-    const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
+      const DarwinNotificationDetails iosDetails = DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+      );
 
-    const NotificationDetails details = NotificationDetails(
-      android: androidDetails,
-      iOS: iosDetails,
-    );
+      const NotificationDetails details = NotificationDetails(
+        android: androidDetails,
+        iOS: iosDetails,
+      );
 
-    await _localNotifications.show(id, title, body, details, payload: payload);
+      await _localNotifications.show(id, title, body, details, payload: payload);
+    } catch (e) {
+      print('Show notification error: $e');
+    }
   }
 
   static Future<String?> getFCMToken() async {
-    return await _firebaseMessaging.getToken();
+    try {
+      return await _firebaseMessaging?.getToken();
+    } catch (e) {
+      print('Get FCM token error: $e');
+      return null;
+    }
   }
 
   static Future<void> subscribeToTopic(String topic) async {
-    await _firebaseMessaging.subscribeToTopic(topic);
+    try {
+      await _firebaseMessaging?.subscribeToTopic(topic);
+    } catch (e) {
+      print('Subscribe to topic error: $e');
+    }
   }
 
   static Future<void> unsubscribeFromTopic(String topic) async {
-    await _firebaseMessaging.unsubscribeFromTopic(topic);
+    try {
+      await _firebaseMessaging?.unsubscribeFromTopic(topic);
+    } catch (e) {
+      print('Unsubscribe from topic error: $e');
+    }
   }
 }
