@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/services/storage_service.dart';
+import '../../../core/services/api_service.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/constants/app_constants.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,33 +26,70 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _login() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    // Simulate login process
-    await Future.delayed(const Duration(seconds: 1));
-
-    // For demo purposes, accept any non-empty credentials
-    if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
-      // Store auth token
-      await StorageService.setAuthToken('demo_token_${DateTime.now().millisecondsSinceEpoch}');
-      
-      if (mounted) {
-        context.go('/home');
-      }
-    } else {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please enter email and password'),
           backgroundColor: AppColors.error,
         ),
       );
+      return;
     }
 
     setState(() {
-      _isLoading = false;
+      _isLoading = true;
     });
+
+    try {
+      final result = await ApiService.login({
+        'email': _emailController.text.trim(),
+        'password': _passwordController.text,
+      });
+
+      if (result['success'] == true) {
+        final data = result['data'];
+        
+        // Store auth token
+        await StorageService.setAuthToken(data['token']);
+        
+        // Store user data
+        await StorageService.setUserData(data['user']);
+        
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(AppConstants.loginSuccess),
+              backgroundColor: AppColors.success,
+            ),
+          );
+          context.go('/home');
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(result['message'] ?? AppConstants.unknownError),
+              backgroundColor: AppColors.error,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Login failed: ${e.toString()}'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   @override
