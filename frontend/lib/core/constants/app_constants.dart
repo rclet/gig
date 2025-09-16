@@ -2,8 +2,10 @@ import 'config/environment_config.dart';
 
 class AppConstants {
   // API Configuration
+
   static String get baseUrl => EnvironmentConfig.baseUrl;
   static String get socketUrl => EnvironmentConfig.socketUrl;
+
   static const int connectTimeout = 30000;
   static const int receiveTimeout = 30000;
   
