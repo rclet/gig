@@ -26,13 +26,16 @@
     22 => 'Illuminate\\View\\ViewServiceProvider',
     23 => 'Laravel\\Horizon\\HorizonServiceProvider',
     24 => 'Laravel\\Octane\\OctaneServiceProvider',
-    25 => 'Laravel\\Sanctum\\SanctumServiceProvider',
-    26 => 'Laravel\\Scout\\ScoutServiceProvider',
-    27 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    28 => 'Carbon\\Laravel\\ServiceProvider',
-    29 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    30 => 'Spatie\\MediaLibrary\\MediaLibraryServiceProvider',
-    31 => 'Spatie\\Permission\\PermissionServiceProvider',
+    25 => 'Laravel\\Sail\\SailServiceProvider',
+    26 => 'Laravel\\Sanctum\\SanctumServiceProvider',
+    27 => 'Laravel\\Scout\\ScoutServiceProvider',
+    28 => 'Laravel\\Telescope\\TelescopeServiceProvider',
+    29 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    30 => 'Carbon\\Laravel\\ServiceProvider',
+    31 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    32 => 'Termwind\\Laravel\\TermwindServiceProvider',
+    33 => 'Spatie\\MediaLibrary\\MediaLibraryServiceProvider',
+    34 => 'Spatie\\Permission\\PermissionServiceProvider',
   ),
   'eager' => 
   array (
@@ -50,11 +53,13 @@
     11 => 'Laravel\\Octane\\OctaneServiceProvider',
     12 => 'Laravel\\Sanctum\\SanctumServiceProvider',
     13 => 'Laravel\\Scout\\ScoutServiceProvider',
-    14 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    15 => 'Carbon\\Laravel\\ServiceProvider',
-    16 => 'Termwind\\Laravel\\TermwindServiceProvider',
-    17 => 'Spatie\\MediaLibrary\\MediaLibraryServiceProvider',
-    18 => 'Spatie\\Permission\\PermissionServiceProvider',
+    14 => 'Laravel\\Telescope\\TelescopeServiceProvider',
+    15 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    16 => 'Carbon\\Laravel\\ServiceProvider',
+    17 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    18 => 'Termwind\\Laravel\\TermwindServiceProvider',
+    19 => 'Spatie\\MediaLibrary\\MediaLibraryServiceProvider',
+    20 => 'Spatie\\Permission\\PermissionServiceProvider',
   ),
   'deferred' => 
   array (
@@ -209,6 +214,8 @@
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'Illuminate\\Contracts\\Validation\\UncompromisedVerifier' => 'Illuminate\\Validation\\ValidationServiceProvider',
+    'Laravel\\Sail\\Console\\InstallCommand' => 'Laravel\\Sail\\SailServiceProvider',
+    'Laravel\\Sail\\Console\\PublishCommand' => 'Laravel\\Sail\\SailServiceProvider',
   ),
   'when' => 
   array (
@@ -249,6 +256,9 @@
     array (
     ),
     'Illuminate\\Validation\\ValidationServiceProvider' => 
+    array (
+    ),
+    'Laravel\\Sail\\SailServiceProvider' => 
     array (
     ),
   ),
