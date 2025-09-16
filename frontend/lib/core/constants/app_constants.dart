@@ -1,6 +1,6 @@
 class AppConstants {
   // API Configuration
-  static const String baseUrl = 'http://localhost:8000/api';
+static const String baseUrl = 'https://gig.com.bd/gig-main/backend/api';
   static const String socketUrl = 'http://localhost:8000';
   static const int connectTimeout = 30000;
   static const int receiveTimeout = 30000;
