@@ -23,10 +23,7 @@ class ApiService {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-      },
-      // Add additional headers for CORS and API compatibility
-      extra: {
-        'withCredentials': false,
+        'User-Agent': 'GigMarketplace-Flutter/1.0.0',
       },
     ));
 
@@ -37,14 +34,11 @@ class ApiService {
         if (token != null) {
           options.headers['Authorization'] = 'Bearer $token';
         }
-        // Add user agent for better server compatibility
-        options.headers['User-Agent'] = 'GigMarketplace-Flutter/1.0.0';
         handler.next(options);
       },
       onError: (error, handler) {
         if (error.response?.statusCode == 401) {
-          // Handle unauthorized access
-          _handleUnauthorized();
+          StorageService.clearAll();
         }
         handler.next(error);
       },
@@ -64,13 +58,6 @@ class ApiService {
     _initialized = true;
   }
 
-  static void _handleUnauthorized() {
-    // Clear stored auth data
-    StorageService.clearAll();
-    // Redirect to login screen would be handled by the app router
-  }
-
-  // Helper method to handle API errors consistently
   static Map<String, dynamic> _handleError(DioException error) {
     String message = AppConstants.unknownError;
     int statusCode = 0;
@@ -92,7 +79,7 @@ class ApiService {
           message = AppConstants.authError;
           break;
         case 403:
-          message = 'Access forbidden. You do not have permission to perform this action.';
+          message = 'Access forbidden.';
           break;
         case 404:
           message = 'Resource not found.';
@@ -107,7 +94,6 @@ class ApiService {
           message = 'An error occurred (Status: $statusCode)';
       }
 
-      // Try to extract error message from response
       try {
         final responseData = error.response!.data;
         if (responseData is Map<String, dynamic> && responseData.containsKey('message')) {
@@ -203,7 +189,6 @@ class ApiService {
     }
   }
 
-  // Job endpoints
   static Future<Map<String, dynamic>> getJobs({Map<String, dynamic>? query}) async {
     try {
       final response = await dio.get('/jobs', queryParameters: query);
@@ -242,26 +227,6 @@ class ApiService {
     }
   }
 
-  static Future<Map<String, dynamic>> createJob(Map<String, dynamic> data) async {
-    try {
-      final response = await dio.post('/jobs', data: data);
-      return {
-        'success': true,
-        'data': response.data,
-        'statusCode': response.statusCode,
-      };
-    } on DioException catch (e) {
-      return _handleError(e);
-    } catch (e) {
-      return {
-        'success': false,
-        'message': AppConstants.unknownError,
-        'error': e.toString(),
-      };
-    }
-  }
-
-  // Categories
   static Future<Map<String, dynamic>> getCategories() async {
     try {
       final response = await dio.get('/categories');
@@ -281,49 +246,9 @@ class ApiService {
     }
   }
 
-  // Health check endpoint
   static Future<Map<String, dynamic>> healthCheck() async {
     try {
       final response = await dio.get('/');
-      return {
-        'success': true,
-        'data': response.data,
-        'statusCode': response.statusCode,
-      };
-    } on DioException catch (e) {
-      return _handleError(e);
-    } catch (e) {
-      return {
-        'success': false,
-        'message': AppConstants.unknownError,
-        'error': e.toString(),
-      };
-    }
-  }
-
-  // Generic methods with error handling
-  static Future<Map<String, dynamic>> get(String path, {Map<String, dynamic>? query}) async {
-    try {
-      final response = await dio.get(path, queryParameters: query);
-      return {
-        'success': true,
-        'data': response.data,
-        'statusCode': response.statusCode,
-      };
-    } on DioException catch (e) {
-      return _handleError(e);
-    } catch (e) {
-      return {
-        'success': false,
-        'message': AppConstants.unknownError,
-        'error': e.toString(),
-      };
-    }
-  }
-
-  static Future<Map<String, dynamic>> post(String path, {dynamic data}) async {
-    try {
-      final response = await dio.post(path, data: data);
       return {
         'success': true,
         'data': response.data,
