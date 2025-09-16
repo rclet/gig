@@ -1,14 +1,18 @@
+import 'config/environment_config.dart';
+
 class AppConstants {
   // API Configuration
-static const String baseUrl = 'https://gig.com.bd/gig-main/backend/api';
-  static const String socketUrl = 'http://localhost:8000';
+
+  static String get baseUrl => EnvironmentConfig.baseUrl;
+  static String get socketUrl => EnvironmentConfig.socketUrl;
+
   static const int connectTimeout = 30000;
   static const int receiveTimeout = 30000;
   
   // App Information
   static const String appName = 'Gig Marketplace';
   static const String appVersion = '1.0.0';
-  static const String appUrl = 'https://gig.com.bd';
+  static String get appUrl => EnvironmentConfig.appUrl;
   
   // Storage Keys
   static const String authTokenKey = 'auth_token';
