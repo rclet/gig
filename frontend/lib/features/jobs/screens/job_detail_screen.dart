@@ -2,11 +2,104 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../shared/widgets/rclet_animation.dart';
 
-class JobDetailScreen extends StatelessWidget {
+class JobDetailScreen extends StatefulWidget {
   final String jobId;
   
   const JobDetailScreen({super.key, required this.jobId});
+
+  @override
+  State<JobDetailScreen> createState() => _JobDetailScreenState();
+}
+
+class _JobDetailScreenState extends State<JobDetailScreen> {
+  void _showApplicationSuccessModal() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => RcletAnimation.successModal(
+        title: 'Application Submitted!',
+        message: 'Your application has been successfully submitted. The client will review it and get back to you soon.',
+        onDismiss: () {
+          Navigator.of(context).pop();
+          context.go('/jobs');
+        },
+        buttonText: 'Back to Jobs',
+      ),
+    );
+  }
+
+  void _showProposalSentModal() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Scaffold(
+        backgroundColor: Colors.black.withOpacity(0.7),
+        body: Center(
+          child: Material(
+            borderRadius: BorderRadius.circular(16.r),
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 32.w),
+              padding: EdgeInsets.all(24.w),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const RcletAnimation(
+                    animationType: RcletAnimationType.proposalSent,
+                  ),
+                  SizedBox(height: 16.h),
+                  Text(
+                    'Proposal Sent!',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    'Your proposal is on its way to the client. You\'ll be notified when they respond.',
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: Colors.grey.shade600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 24.h),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        // Wait a bit then show success modal
+                        Future.delayed(const Duration(milliseconds: 500), () {
+                          _showApplicationSuccessModal();
+                        });
+                      },
+                      child: const Text('Continue'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,12 +229,8 @@ class JobDetailScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Application feature coming soon!'),
-                      backgroundColor: AppColors.success,
-                    ),
-                  );
+                  // Show proposal sent animation first
+                  _showProposalSentModal();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,

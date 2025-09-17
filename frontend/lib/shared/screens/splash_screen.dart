@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../widgets/rclet_animation.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -141,15 +142,10 @@ class _SplashScreenState extends State<SplashScreen>
                       SizedBox(height: 48.h),
                       
                       // Loading Animation
-                      SizedBox(
-                        width: 40.w,
-                        height: 40.w,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white.withOpacity(0.8),
-                          ),
-                          strokeWidth: 3,
-                        ),
+                      RcletAnimation(
+                        animationType: RcletAnimationType.loadingSpinner,
+                        width: 50.w,
+                        height: 50.w,
                       ),
                       
                       SizedBox(height: 16.h),
