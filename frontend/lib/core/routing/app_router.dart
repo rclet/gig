@@ -13,6 +13,8 @@ import '../../features/chat/screens/chat_list_screen.dart';
 import '../../features/projects/screens/project_list_screen.dart';
 import '../../shared/screens/splash_screen.dart';
 import '../../shared/screens/main_navigation_screen.dart';
+import '../../screens/animation_preview.dart';
+import '../../screens/rclet_demo_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -42,6 +44,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/register',
         name: 'register',
         builder: (context, state) => const RegisterScreen(),
+      ),
+
+      // Animation Preview (accessible without authentication for development)
+      GoRoute(
+        path: '/animation-preview',
+        name: 'animation-preview',
+        builder: (context, state) => const AnimationPreviewScreen(),
+      ),
+
+      // Rclet Demo (accessible without authentication for development)
+      GoRoute(
+        path: '/rclet-demo',
+        name: 'rclet-demo',
+        builder: (context, state) => const RcletDemoScreen(),
       ),
 
       // Main Navigation Shell
@@ -114,7 +130,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           !state.matchedLocation.startsWith('/login') && 
           !state.matchedLocation.startsWith('/register') &&
           !state.matchedLocation.startsWith('/onboarding') &&
-          !state.matchedLocation.startsWith('/splash')) {
+          !state.matchedLocation.startsWith('/splash') &&
+          !state.matchedLocation.startsWith('/animation-preview') &&
+          !state.matchedLocation.startsWith('/rclet-demo')) {
         return '/login';
       }
 

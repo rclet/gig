@@ -1,0 +1,87 @@
+{
+  "name": "Rclet Gig Lottie Pack",
+  "version": "1.0.0",
+  "description": "Comprehensive animation pack for Rclet Gig marketplace with futuristic UI elements",
+  "created": "2024-01-20",
+  "animations": [
+    {
+      "filename": "gig_loading_spinner.json",
+      "name": "Gig Loading Spinner",
+      "usage": "General loading states, search operations, form submissions",
+      "duration": "2s loop",
+      "dimensions": "100x100",
+      "fallback": "CircularProgressIndicator",
+      "category": "loading",
+      "tags": ["loading", "spinner", "circular", "general"]
+    },
+    {
+      "filename": "no_gigs_empty.json",
+      "name": "No Gigs Empty State",
+      "usage": "Job search results, empty gig lists, no data states",
+      "duration": "3s",
+      "dimensions": "120x120",
+      "fallback": "Empty folder icon with text",
+      "category": "empty-state",
+      "tags": ["empty", "no-data", "folder", "search-results"]
+    },
+    {
+      "filename": "booking_success_tick.json",
+      "name": "Booking Success Tick",
+      "usage": "Form submissions, booking confirmations, payment success",
+      "duration": "2s",
+      "dimensions": "80x80",
+      "fallback": "Green checkmark icon",
+      "category": "success",
+      "tags": ["success", "checkmark", "confirmation", "booking"]
+    },
+    {
+      "filename": "error_red_alert.json",
+      "name": "Error Red Alert",
+      "usage": "Form validation errors, network failures, critical alerts",
+      "duration": "3s",
+      "dimensions": "100x100",
+      "fallback": "Red exclamation mark",
+      "category": "error",
+      "tags": ["error", "alert", "warning", "validation"]
+    },
+    {
+      "filename": "onboarding_handshake.json",
+      "name": "Onboarding Handshake",
+      "usage": "User onboarding, welcome messages, partnership agreements",
+      "duration": "5s",
+      "dimensions": "150x150",
+      "fallback": "Handshake icon with welcome text",
+      "category": "onboarding",
+      "tags": ["welcome", "handshake", "onboarding", "greeting"]
+    },
+    {
+      "filename": "tap_ripple_micro.json",
+      "name": "Tap Ripple Micro",
+      "usage": "Button feedback, touch interactions, micro animations",
+      "duration": "0.5s",
+      "dimensions": "60x60",
+      "fallback": "Simple scale animation",
+      "category": "interaction",
+      "tags": ["micro", "ripple", "tap", "button", "feedback"]
+    }
+  ],
+  "theme": {
+    "primaryColor": "#3366FF",
+    "successColor": "#22C55E",
+    "errorColor": "#EF4444",
+    "warningColor": "#F59E0B",
+    "neutralColor": "#6B7280"
+  },
+  "guidelines": {
+    "performance": "All animations optimized for 60fps playback",
+    "accessibility": "Fallback static elements provided for reduced motion",
+    "size": "Individual files under 10KB for optimal loading",
+    "compatibility": "Compatible with Lottie 5.7.1+ and Flutter lottie package"
+  },
+  "integration": {
+    "wrapper": "RcletAnimationWrapper",
+    "preview": "/animation-preview",
+    "assetPath": "assets/animations/",
+    "package": "lottie: ^3.1.2"
+  }
+}
