@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../widgets/control_center.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   final Widget child;
@@ -77,8 +78,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       });
     }
 
-    return Scaffold(
-      body: widget.child,
+    return ControlCenter(
+      showRedDotIndicators: true,
+      showNationalBranding: true,
+      child: Scaffold(
+        body: widget.child,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -142,6 +146,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               child: const Icon(Icons.add, color: Colors.white),
             )
           : null,
+      ),
     );
   }
 }

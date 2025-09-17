@@ -14,26 +14,23 @@ import '../../features/projects/screens/project_list_screen.dart';
 import '../../shared/screens/splash_screen.dart';
 import '../../shared/screens/main_navigation_screen.dart';
 import '../../shared/screens/animation_demo_screen.dart';
+import '../../screens/animation_preview.dart';
+import '../../screens/rclet_demo_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/splash',
     routes: [
-      // Splash Screen
       GoRoute(
         path: '/splash',
         name: 'splash',
         builder: (context, state) => const SplashScreen(),
       ),
-
-      // Onboarding
       GoRoute(
         path: '/onboarding',
         name: 'onboarding',
         builder: (context, state) => const OnboardingScreen(),
       ),
-
-      // Authentication
       GoRoute(
         path: '/login',
         name: 'login',
@@ -45,25 +42,35 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const RegisterScreen(),
       ),
 
-      // Animation Demo (for development and testing)
+      // Animation Demo (for internal testing)
       GoRoute(
         path: '/demo',
         name: 'demo',
         builder: (context, state) => const AnimationDemoScreen(),
       ),
 
-      // Main Navigation Shell
+      // Animation Preview (unauthenticated access)
+      GoRoute(
+        path: '/animation-preview',
+        name: 'animation-preview',
+        builder: (context, state) => const AnimationPreviewScreen(),
+      ),
+
+      // Rclet Demo (unauthenticated access)
+      GoRoute(
+        path: '/rclet-demo',
+        name: 'rclet-demo',
+        builder: (context, state) => const RcletDemoScreen(),
+      ),
+
       ShellRoute(
         builder: (context, state, child) => MainNavigationScreen(child: child),
         routes: [
-          // Home
           GoRoute(
             path: '/home',
             name: 'home',
             builder: (context, state) => const HomeScreen(),
           ),
-
-          // Jobs
           GoRoute(
             path: '/jobs',
             name: 'jobs',
@@ -78,22 +85,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-
-          // Projects
           GoRoute(
             path: '/projects',
             name: 'projects',
             builder: (context, state) => const ProjectListScreen(),
           ),
-
-          // Chat
           GoRoute(
             path: '/chat',
             name: 'chat',
             builder: (context, state) => const ChatListScreen(),
           ),
-
-          // Profile
           GoRoute(
             path: '/profile',
             name: 'profile',
@@ -105,30 +106,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final isLoggedIn = StorageService.getAuthToken() != null;
       final isOnboardingCompleted = StorageService.isOnboardingCompleted();
-      
-      // Handle splash screen redirect and check-auth route
+
       if (state.matchedLocation == '/splash' || state.matchedLocation == '/check-auth') {
-        if (!isOnboardingCompleted) {
-          return '/onboarding';
-        } else if (!isLoggedIn) {
-          return '/login';
-        } else {
-          return '/home';
-        }
+        if (!isOnboardingCompleted) return '/onboarding';
+        if (!isLoggedIn) return '/login';
+        return '/home';
       }
 
-      // Redirect to login if not authenticated
-      if (!isLoggedIn && 
-          !state.matchedLocation.startsWith('/login') && 
+      if (!isLoggedIn &&
+          !state.matchedLocation.startsWith('/login') &&
           !state.matchedLocation.startsWith('/register') &&
           !state.matchedLocation.startsWith('/onboarding') &&
-          !state.matchedLocation.startsWith('/splash')) {
+          !state.matchedLocation.startsWith('/splash') &&
+          !state.matchedLocation.startsWith('/animation-preview') &&
+          !state.matchedLocation.startsWith('/rclet-demo') &&
+          !state.matchedLocation.startsWith('/demo')) {
         return '/login';
       }
 
-      // Redirect to home if authenticated and trying to access auth pages
-      if (isLoggedIn && 
-          (state.matchedLocation.startsWith('/login') || 
+      if (isLoggedIn &&
+          (state.matchedLocation.startsWith('/login') ||
            state.matchedLocation.startsWith('/register') ||
            state.matchedLocation.startsWith('/onboarding'))) {
         return '/home';
