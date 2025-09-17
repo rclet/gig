@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../widgets/gig_animation_wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -140,16 +141,10 @@ class _SplashScreenState extends State<SplashScreen>
                       
                       SizedBox(height: 48.h),
                       
-                      // Loading Animation
-                      SizedBox(
-                        width: 40.w,
-                        height: 40.w,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white.withOpacity(0.8),
-                          ),
-                          strokeWidth: 3,
-                        ),
+                      // Rclet Gig Loading Animation
+                      GigAnimationWrapper.loadingSpinner(
+                        size: 60.w,
+                        color: Colors.white,
                       ),
                       
                       SizedBox(height: 16.h),
@@ -159,6 +154,22 @@ class _SplashScreenState extends State<SplashScreen>
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: Colors.white.withOpacity(0.8),
+                        ),
+                      ),
+                      
+                      SizedBox(height: 8.h),
+                      
+                      // Subtle red dot indicator for v1.0
+                      RedDotAnimationWrapper(
+                        showRedDot: true,
+                        dotSize: 6.0,
+                        child: Text(
+                          'v1.0 Lottie Pack',
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                            color: Colors.white.withOpacity(0.6),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
