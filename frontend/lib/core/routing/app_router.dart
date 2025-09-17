@@ -13,6 +13,7 @@ import '../../features/chat/screens/chat_list_screen.dart';
 import '../../features/projects/screens/project_list_screen.dart';
 import '../../shared/screens/splash_screen.dart';
 import '../../shared/screens/main_navigation_screen.dart';
+import '../../shared/screens/animation_demo_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -42,6 +43,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/register',
         name: 'register',
         builder: (context, state) => const RegisterScreen(),
+      ),
+
+      // Animation Demo (for development and testing)
+      GoRoute(
+        path: '/demo',
+        name: 'demo',
+        builder: (context, state) => const AnimationDemoScreen(),
       ),
 
       // Main Navigation Shell
