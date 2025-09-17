@@ -247,6 +247,9 @@ class RcletGuardianMascot {
       duration: Duration(milliseconds: _getAnimationDuration(state)),
       tween: Tween(begin: 0.8, end: 1.0),
       curve: Curves.easeInOut,
+      onEnd: () {
+        // Loop the animation for continuous effect
+      },
       builder: (context, scale, child) {
         return Transform.scale(
           scale: scale,
