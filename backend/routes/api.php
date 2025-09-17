@@ -10,6 +10,9 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminCategoryController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();

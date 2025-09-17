@@ -2,11 +2,18 @@
   "v": "5.7.4",
   "fr": 30,
   "ip": 0,
-  "op": 90,
-  "w": 200,
-  "h": 200,
+  "op": 60,
+  "w": 140,
+  "h": 140,
   "nm": "No Gigs Empty State",
   "ddd": 0,
+  "placeholder": true,
+  "meta": {
+    "description": "Empty state animation for when no gigs are available",
+    "usage": "Gig list empty, search results empty, agent fallback",
+    "duration": "2s",
+    "fallback": "Sad face icon"
+  },
   "assets": [],
   "layers": [
     {
@@ -16,31 +23,12 @@
       "nm": "Empty Box",
       "sr": 1,
       "ks": {
-        "o": {"a": 1, "k": [
-          {"t": 0, "s": [0], "e": [100], "to": [15, 0, 0], "ti": [-15, 0, 0]},
-          {"t": 30, "s": [100], "e": [70], "to": [10, 0, 0], "ti": [-10, 0, 0]},
-          {"t": 60, "s": [70], "e": [100], "to": [15, 0, 0], "ti": [-15, 0, 0]},
-          {"t": 90, "s": [100]}
-        ]},
-        "r": {"a": 0, "k": 0},
-        "p": {"a": 0, "k": [100, 100, 0]},
-        "a": {"a": 0, "k": [0, 0, 0]},
-        "s": {"a": 0, "k": [100, 100, 100]}
-      },
-      "ao": 0,
-      "shapes": [
-        {
-          "ty": "rc",
-          "p": {"a": 0, "k": [0, 0]},
-          "s": {"a": 0, "k": [80, 80]},
-          "r": {"a": 0, "k": 8}
-        }
-      ],
-      "ip": 0,
-      "op": 90,
-      "st": 0
+        "o": { "a": 0, "k": 100 },
+        "r": { "a": 0, "k": 0 },
+        "p": { "a": 0, "k": [70, 70, 0] },
+        "a": { "a": 0, "k": [0, 0, 0] },
+        "s": { "a": 0, "k": [100, 100, 100] }
+      }
     }
-  ],
-  "markers": [],
-  "placeholder": true
+  ]
 }

@@ -21,6 +21,13 @@
       0 => 'Laravel\\Octane\\OctaneServiceProvider',
     ),
   ),
+  'laravel/sail' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Sail\\SailServiceProvider',
+    ),
+  ),
   'laravel/sanctum' => 
   array (
     'providers' => 
@@ -33,6 +40,13 @@
     'providers' => 
     array (
       0 => 'Laravel\\Scout\\ScoutServiceProvider',
+    ),
+  ),
+  'laravel/telescope' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Telescope\\TelescopeServiceProvider',
     ),
   ),
   'maatwebsite/excel' => 
@@ -51,6 +65,13 @@
     'providers' => 
     array (
       0 => 'Carbon\\Laravel\\ServiceProvider',
+    ),
+  ),
+  'nunomaduro/collision' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
   'nunomaduro/termwind' => 
