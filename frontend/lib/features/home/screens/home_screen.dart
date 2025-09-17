@@ -113,6 +113,13 @@ class HomeScreen extends StatelessWidget {
                     color: AppColors.success,
                     onTap: () => context.go('/profile'),
                   ),
+                  _buildActionCard(
+                    icon: Icons.animation,
+                    title: 'Animations',
+                    subtitle: 'Demo showcase',
+                    color: Colors.purple,
+                    onTap: () => context.go('/demo'),
+                  ),
                 ],
               ),
             ),
