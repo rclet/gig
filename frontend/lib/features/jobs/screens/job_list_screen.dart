@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/config/environment_config.dart';
+import '../../../shared/widgets/empty_state_widget.dart';
 
 class JobListScreen extends StatefulWidget {
   const JobListScreen({super.key});
@@ -120,8 +121,11 @@ class _JobListScreenState extends State<JobListScreen> {
                   ),
                 Expanded(
                   child: _jobs.isEmpty
-                      ? const Center(
-                          child: Text('No jobs available'),
+                      ? EmptyStateWidget(
+                          title: 'No gigs yet—Rclet Guardian is watching',
+                          subtitle: 'New opportunities will appear here when they become available. The Guardian is monitoring the platform for you.',
+                          actionText: 'Refresh',
+                          onActionPressed: _loadJobs,
                         )
                       : ListView.builder(
                           padding: EdgeInsets.all(16.w),

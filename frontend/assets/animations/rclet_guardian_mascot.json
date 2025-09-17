@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "name": "Rclet Guardian Mascot",
+  "description": "Bangladesh flag-inspired police badge shaped futuristic bot mascot for Rclet Gig platform",
+  "theme": "Bangladesh Identity & Security",
+  "design": {
+    "shape": "police_badge",
+    "inspiration": "bangladesh_flag",
+    "style": "futuristic_bot",
+    "primaryColor": "#006A4E",
+    "accentColor": "#DC143C",
+    "glowColor": "#00FF88"
+  },
+  "mascot": {
+    "name": "Rclet Guardian",
+    "personality": "Protective, Vigilant, Trustworthy",
+    "role": "Platform Security & User Guide",
+    "characteristics": [
+      "Shield-shaped silhouette",
+      "Glowing green eyes",
+      "Red circle core (Bangladesh flag inspired)",
+      "Metallic Bangladesh green body",
+      "Protective stance"
+    ]
+  },
+  "states": {
+    "idle": {
+      "description": "Default peaceful watching state",
+      "animation": "gentle_glow_pulse",
+      "eyes": "steady_green_glow",
+      "duration": 2000
+    },
+    "active": {
+      "description": "Working or processing state",
+      "animation": "rotating_core",
+      "eyes": "pulsing_bright_green",
+      "duration": 1500
+    },
+    "alert": {
+      "description": "Security or notification state",
+      "animation": "shield_expand",
+      "eyes": "rapid_green_flash",
+      "duration": 1000
+    },
+    "success": {
+      "description": "Task completed successfully",
+      "animation": "victory_shine",
+      "eyes": "bright_steady_green",
+      "duration": 2500
+    },
+    "error": {
+      "description": "Error or warning state",
+      "animation": "warning_pulse",
+      "eyes": "red_warning_glow",
+      "duration": 1800
+    }
+  },
+  "usage_contexts": {
+    "splash_screen": {
+      "state": "active",
+      "size": "large",
+      "message": "Rclet Guardian is initializing..."
+    },
+    "control_center": {
+      "state": "idle",
+      "size": "medium",
+      "message": "Guardian is watching"
+    },
+    "agent_status": {
+      "state": "idle",
+      "size": "small",
+      "message": "Online"
+    },
+    "empty_state": {
+      "state": "idle",
+      "size": "large",
+      "message": "No gigs yet—Rclet Guardian is watching"
+    },
+    "loading": {
+      "state": "active",
+      "size": "medium",
+      "message": "Guardian is working..."
+    }
+  },
+  "fallback": {
+    "icon": "shield",
+    "color": "#006A4E",
+    "text": "Rclet Guardian",
+    "description": "Platform security mascot unavailable"
+  },
+  "svg_representation": {
+    "description": "Simplified SVG for static displays",
+    "elements": {
+      "shield_outline": {
+        "path": "M12 2L2 7V12C2 17.5 12 22 12 22S22 17.5 22 12V7L12 2Z",
+        "fill": "#006A4E",
+        "stroke": "#004D36"
+      },
+      "red_core": {
+        "cx": 12,
+        "cy": 12,
+        "r": 3,
+        "fill": "#DC143C"
+      },
+      "eyes": {
+        "left": {"cx": 9, "cy": 9, "r": 1, "fill": "#00FF88"},
+        "right": {"cx": 15, "cy": 9, "r": 1, "fill": "#00FF88"}
+      }
+    }
+  },
+  "metadata": {
+    "created_by": "Rclet Development Team",
+    "version": "1.0.0",
+    "last_updated": "2024-01-01",
+    "license": "Proprietary - Rclet Platform",
+    "file_size": "placeholder",
+    "supported_formats": ["lottie", "svg", "png"],
+    "platforms": ["flutter", "web", "mobile"]
+  }
+}
