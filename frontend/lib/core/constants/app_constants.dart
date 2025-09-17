@@ -1,11 +1,8 @@
-import 'config/environment_config.dart';
+import '../config/environment_config.dart';
 
 class AppConstants {
   // API Configuration
-<<<<<<< HEAD
-=======
 
->>>>>>> 8b42a314f917ef558f9e7b630146aee8f0867c45
   static String get baseUrl => EnvironmentConfig.baseUrl;
   static String get socketUrl => EnvironmentConfig.socketUrl;
 
@@ -16,11 +13,7 @@ class AppConstants {
   static const String appName = 'Gig Marketplace';
   static const String appVersion = '1.0.0';
   static String get appUrl => EnvironmentConfig.appUrl;
-<<<<<<< HEAD
-
-=======
   
->>>>>>> 8b42a314f917ef558f9e7b630146aee8f0867c45
   // Storage Keys
   static const String authTokenKey = 'auth_token';
   static const String userDataKey = 'user_data';
