@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/services/storage_service.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../../shared/widgets/control_center_widget.dart';
+import '../../../shared/widgets/gig_animation_wrapper.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -37,8 +37,8 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Rclet Guardian Control Center
-            const ControlCenterWidget(),
+            // Rclet Guardian Animation
+            GigAnimationWrapper.guardianMascot(size: 80.w),
             
             SizedBox(height: 24.h),
             
@@ -88,9 +88,31 @@ class HomeScreen extends StatelessWidget {
                     color: AppColors.success,
                     onTap: () => context.go('/profile'),
                   ),
+                  _buildActionCard(
+                    icon: Icons.animation,
+                    title: 'Animations',
+                    subtitle: 'Demo showcase',
+                    color: Colors.purple,
+                    onTap: () => context.go('/demo'),
+                  ),
                 ],
               ),
             ),
+            
+            SizedBox(height: 16.h),
+            
+            // Animation showcase section
+            Text(
+              'Rclet Lottie Pack v1.0',
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            SizedBox(height: 12.h),
+            
+            _buildAnimationShowcase(),
           ],
         ),
       ),
@@ -142,6 +164,92 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildAnimationShowcase() {
+    return Container(
+      height: 120.h,
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF006A4E), Color(0xFFF42A41)], // Bangladesh colors
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8.r,
+            offset: Offset(0, 4.h),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RedDotAnimationWrapper(
+                  showRedDot: true,
+                  child: Text(
+                    'Animations Ready!',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  '6 Lottie animations with national branding',
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    color: Colors.white.withOpacity(0.9),
+                  ),
+                ),
+                SizedBox(height: 8.h),
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to animation preview
+                    Navigator.pushNamed(context, '/animations');
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12.r),
+                      border: Border.all(color: Colors.white.withOpacity(0.3)),
+                    ),
+                    child: Text(
+                      'View Preview',
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 16.w),
+          // Animation samples
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GigAnimationWrapper.success(size: 24.w),
+              GigAnimationWrapper.loadingSpinner(size: 20.w, color: Colors.white),
+              GigAnimationWrapper.tapRipple(size: 16.w, color: Colors.white),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -5,8 +5,8 @@ enum Environment {
 }
 
 class EnvironmentConfig {
-  // Change to development if the production URL is not accessible
-  static const Environment _currentEnvironment = Environment.development;
+  // Updated to production for Rclet Gig v1.0 release
+  static const Environment _currentEnvironment = Environment.production;
   
   static Environment get currentEnvironment => _currentEnvironment;
   

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/services/api_service.dart';
 import '../../../core/config/environment_config.dart';
-import '../../../shared/widgets/empty_state_widget.dart';
+import '../../../shared/widgets/rclet_animation.dart';
 
 class JobListScreen extends StatefulWidget {
   const JobListScreen({super.key});
@@ -98,7 +98,15 @@ class _JobListScreenState extends State<JobListScreen> {
         ],
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? RcletAnimation.fullscreenLoader(
+              backgroundColor: AppColors.background,
+              loadingText: 'Finding opportunities for you...',
+              textStyle: TextStyle(
+                fontSize: 16.sp,
+                color: AppColors.textSecondary,
+                fontWeight: FontWeight.w500,
+              ),
+            )
           : Column(
               children: [
                 if (_errorMessage != null)
@@ -121,11 +129,13 @@ class _JobListScreenState extends State<JobListScreen> {
                   ),
                 Expanded(
                   child: _jobs.isEmpty
-                      ? EmptyStateWidget(
-                          title: 'No gigs yet—Rclet Guardian is watching',
-                          subtitle: 'New opportunities will appear here when they become available. The Guardian is monitoring the platform for you.',
-                          actionText: 'Refresh',
-                          onActionPressed: _loadJobs,
+            ? RcletAnimation.emptyState(
+              title: 'No Jobs Found',
+              message: 'There are currently no jobs available. Check back later or refine your search criteria.',
+              onAction: _loadJobs,
+              actionText: 'Refresh Jobs',
+              actionIcon: Icons.refresh,
+            )
                         )
                       : ListView.builder(
                           padding: EdgeInsets.all(16.w),

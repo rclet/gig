@@ -22,12 +22,12 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    
+
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     _scaleController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
@@ -56,12 +56,9 @@ class _SplashScreenState extends State<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 500));
     _fadeController.forward();
     _scaleController.forward();
-    
-    // Wait for animations to complete, then trigger redirect
+
     await Future.delayed(const Duration(milliseconds: 3000));
     if (mounted) {
-      // Trigger the router's redirect logic by going to a dummy route
-      // The router will automatically redirect based on auth state
       context.go('/check-auth');
     }
   }
@@ -98,10 +95,8 @@ class _SplashScreenState extends State<SplashScreen>
                         state: MascotState.active,
                         showMessage: false,
                       ),
-                      
+                      ),
                       SizedBox(height: 32.h),
-                      
-                      // App Name
                       Text(
                         'Gig Marketplace',
                         style: TextStyle(
@@ -111,10 +106,7 @@ class _SplashScreenState extends State<SplashScreen>
                           letterSpacing: 1.5,
                         ),
                       ),
-                      
                       SizedBox(height: 8.h),
-                      
-                      // Tagline
                       Text(
                         'gig.com.bd',
                         style: TextStyle(
@@ -123,28 +115,35 @@ class _SplashScreenState extends State<SplashScreen>
                           letterSpacing: 0.5,
                         ),
                       ),
-                      
                       SizedBox(height: 48.h),
-                      
-                      // Loading Animation
-                      SizedBox(
-                        width: 40.w,
-                        height: 40.w,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white.withOpacity(0.8),
-                          ),
-                          strokeWidth: 3,
-                        ),
+
+                      // ✅ Rclet Gig Loading Animation
+                      GigAnimationWrapper.loadingSpinner(
+                        size: 60.w,
+                        color: Colors.white,
                       ),
-                      
+
                       SizedBox(height: 16.h),
-                      
                       Text(
                         'Rclet Guardian is initializing...',
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: Colors.white.withOpacity(0.8),
+                        ),
+                      ),
+                      SizedBox(height: 8.h),
+
+                      // ✅ Subtle red dot indicator for v1.0
+                      RedDotAnimationWrapper(
+                        showRedDot: true,
+                        dotSize: 6.0,
+                        child: Text(
+                          'v1.0 Lottie Pack',
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                            color: Colors.white.withOpacity(0.6),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
