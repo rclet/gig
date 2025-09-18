@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
-import '../widgets/gig_animation_wrapper.dart';
+import '../../../core/components/rclet_guardian_mascot.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -89,25 +89,12 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 120.w,
-                        height: 120.w,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(24.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 20,
-                              offset: const Offset(0, 10),
-                            ),
-                          ],
-                        ),
-                        child: Icon(
-                          Icons.work_outline,
-                          size: 60.sp,
-                          color: AppColors.primary,
-                        ),
+                      // Rclet Guardian Mascot
+                      RcletGuardianMascot.buildAnimatedMascot(
+                        size: MascotSize.large,
+                        state: MascotState.active,
+                        showMessage: false,
+                      ),
                       ),
                       SizedBox(height: 32.h),
                       Text(
@@ -138,7 +125,7 @@ class _SplashScreenState extends State<SplashScreen>
 
                       SizedBox(height: 16.h),
                       Text(
-                        'Loading your opportunities...',
+                        'Rclet Guardian is initializing...',
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: Colors.white.withOpacity(0.8),

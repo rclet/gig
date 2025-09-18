@@ -1,45 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../shared/widgets/control_center_widget.dart';
+import '../../../shared/widgets/empty_state_widget.dart';
 
 class ProjectListScreen extends StatelessWidget {
   const ProjectListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const bool hasProjects = true; // Mock: change to false to test empty state
+    
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text('My Projects'),
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
+        actions: [
+          const AgentStatusIndicator(),
+          SizedBox(width: 8.w),
+        ],
       ),
-      body: ListView.builder(
-        padding: EdgeInsets.all(16.w),
-        itemCount: 6, // Mock data
-        itemBuilder: (context, index) {
-          final statuses = ['Active', 'Completed', 'In Review', 'Active', 'Completed', 'Draft'];
-          final statusColors = [
-            AppColors.success,
-            AppColors.primary,
-            AppColors.warning,
-            AppColors.success,
-            AppColors.primary,
-            AppColors.textSecondary,
-          ];
-          
-          return _buildProjectCard(
-            title: 'E-commerce Mobile App',
-            client: 'TechCorp Ltd.',
-            budget: '\$${(index + 1) * 800}',
-            deadline: '${15 + index} Dec 2024',
-            progress: (index + 1) * 15.0,
-            status: statuses[index],
-            statusColor: statusColors[index],
-            description: 'Building a complete e-commerce solution with payment integration and real-time tracking.',
-          );
-        },
-      ),
+      body: hasProjects
+          ? ListView.builder(
+              padding: EdgeInsets.all(16.w),
+              itemCount: 6, // Mock data
+              itemBuilder: (context, index) {
+                final statuses = ['Active', 'Completed', 'In Review', 'Active', 'Completed', 'Draft'];
+                final statusColors = [
+                  AppColors.success,
+                  AppColors.primary,
+                  AppColors.warning,
+                  AppColors.success,
+                  AppColors.primary,
+                  AppColors.textSecondary,
+                ];
+                
+                return _buildProjectCard(
+                  title: 'E-commerce Mobile App',
+                  client: 'TechCorp Ltd.',
+                  budget: '\$${(index + 1) * 800}',
+                  deadline: '${15 + index} Dec 2024',
+                  progress: (index + 1) * 15.0,
+                  status: statuses[index],
+                  statusColor: statusColors[index],
+                  description: 'Building a complete e-commerce solution with payment integration and real-time tracking.',
+                );
+              },
+            )
+          : const EmptyStateWidget(
+              title: 'No projects yet—Rclet Guardian is watching',
+              subtitle: 'Once you accept job offers, your projects will appear here. The Guardian will help you track progress and stay organized.',
+              actionText: 'Browse Jobs',
+            ),
     );
   }
 
