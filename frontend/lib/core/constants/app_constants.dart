@@ -2,7 +2,6 @@ import '../config/environment_config.dart';
 
 class AppConstants {
   // API Configuration
-
   static String get baseUrl => EnvironmentConfig.baseUrl;
   static String get socketUrl => EnvironmentConfig.socketUrl;
 
@@ -13,7 +12,12 @@ class AppConstants {
   static const String appName = 'Gig Marketplace';
   static const String appVersion = '1.0.0';
   static String get appUrl => EnvironmentConfig.appUrl;
-  
+
+  // User Feedback Messages
+  static const String loginSuccess = 'Login successful!';
+  static const String registerSuccess = 'Registration successful!';
+  static const String unknownError = 'Something went wrong. Please try again.';
+
   // Storage Keys
   static const String authTokenKey = 'auth_token';
   static const String userDataKey = 'user_data';
@@ -117,5 +121,5 @@ class AppConstants {
   // Regular Expressions
   static const String emailRegex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
   static const String phoneRegex = r'^(\+88)?01[3-9]\d{8}$';
-  static const String passwordRegex = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$';
+  static const String passwordRegex = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$';
 }

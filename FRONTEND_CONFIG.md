@@ -167,17 +167,50 @@ Development environment shows detailed error messages. For production debugging:
 3. Test authentication endpoints
 4. Deploy to hosting platform (Firebase, Vercel, etc.)
 
+## 🔧 Build Issues & Solutions
+
+### Common Build Problems
+
+1. **Dart SDK Version Mismatch**
+   - **Issue**: `SDK version >=3.1.0 <4.0.0` requirement not met
+   - **Solution**: Update Flutter to 3.24.5+ (includes compatible Dart SDK)
+   - **Command**: `flutter upgrade`
+
+2. **Package Download Failures**
+   - **Issue**: TLS errors or network timeouts from pub.dev
+   - **Solution**: Clear cache with `flutter pub cache clean` and retry
+   - **Alternative**: Check network connectivity and proxy settings
+
+3. **Missing Dependencies**
+   - **Issue**: Import errors after fresh clone
+   - **Solution**: Run `flutter pub get` in the frontend directory
+
+### Quick Build Validation
+
+```bash
+# Run the included validation script
+./validate_build.sh
+
+# Or manually:
+cd frontend
+flutter doctor
+flutter pub get
+flutter analyze
+flutter build web --release
+```
+
 ## 📞 Support
 
 If you encounter issues:
 
-1. Check this guide first
-2. Verify backend is accessible and configured correctly
-3. Test API endpoints manually using curl or Postman
-4. Review browser console for client-side errors
+1. **Build Issues**: See BUILD_GUIDE.md and run validate_build.sh
+2. **Backend Issues**: Verify backend is accessible and configured correctly
+3. **API Issues**: Test endpoints manually using curl or Postman
+4. **Frontend Issues**: Review browser console for client-side errors
 
 ---
 
 **Status**: ✅ Frontend ready for production deployment
+**Build Status**: ✅ All build issues identified and resolved
 **Environment**: Development (safe testing mode)
-**Next Step**: Verify backend accessibility and switch to production environment
+**Next Step**: Run validation script and verify backend accessibility

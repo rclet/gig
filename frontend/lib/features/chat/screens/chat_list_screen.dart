@@ -35,7 +35,6 @@ class _ChatListScreenState extends State<ChatListScreen> {
     setState(() => _isLoading = true);
     await Future.delayed(const Duration(seconds: 2));
     setState(() => _isLoading = false);
-    // Simulate error
     _showErrorDialog();
   }
 
@@ -88,7 +87,6 @@ class _ChatListScreenState extends State<ChatListScreen> {
             actionIcon: Icons.chat_bubble_outline,
           ),
         ),
-        // Chatbot agent at the bottom
         Container(
           padding: EdgeInsets.all(16.w),
           child: Row(
@@ -136,11 +134,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
   Widget _buildChatList() {
     return ListView.builder(
       padding: EdgeInsets.all(16.w),
-      itemCount: 8, // Mock data
+      itemCount: 8,
       itemBuilder: (context, index) {
         return _buildChatTile(
           name: 'Client ${index + 1}',
-          lastMessage: index % 2 == 0 
+          lastMessage: index % 2 == 0
               ? 'Great work on the project! When can we schedule the next milestone?'
               : 'I have some feedback on the latest update. Can we discuss?',
           time: index == 0 ? '2 min ago' : '${(index + 1) * 15} min ago',
@@ -149,7 +147,6 @@ class _ChatListScreenState extends State<ChatListScreen> {
         );
       },
     );
-  }
   }
 
   Widget _buildChatTile({
@@ -177,7 +174,6 @@ class _ChatListScreenState extends State<ChatListScreen> {
             ),
             child: Row(
               children: [
-                // Avatar
                 Stack(
                   children: [
                     CircleAvatar(
@@ -206,8 +202,6 @@ class _ChatListScreenState extends State<ChatListScreen> {
                   ],
                 ),
                 SizedBox(width: 12.w),
-                
-                // Message Content
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
