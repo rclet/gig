@@ -129,12 +129,13 @@ class _JobListScreenState extends State<JobListScreen> {
                   ),
                 Expanded(
                   child: _jobs.isEmpty
-                      ? RcletAnimation.emptyState(
-                          title: 'No Jobs Found',
-                          message: 'There are currently no jobs available. Check back later or refine your search criteria.',
-                          onAction: _loadJobs,
-                          actionText: 'Refresh Jobs',
-                          actionIcon: Icons.refresh,
+            ? RcletAnimation.emptyState(
+              title: 'No Jobs Found',
+              message: 'There are currently no jobs available. Check back later or refine your search criteria.',
+              onAction: _loadJobs,
+              actionText: 'Refresh Jobs',
+              actionIcon: Icons.refresh,
+            )
                         )
                       : ListView.builder(
                           padding: EdgeInsets.all(16.w),
