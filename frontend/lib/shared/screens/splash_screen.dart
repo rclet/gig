@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/components/rclet_guardian_mascot.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/components/rclet_guardian_mascot.dart';
+import '../../core/token_store.dart';
+import '../../features/auth/providers/auth_provider.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with TickerProviderStateMixin {
   late AnimationController _fadeController;
   late AnimationController _scaleController;
@@ -57,9 +60,38 @@ class _SplashScreenState extends State<SplashScreen>
     _fadeController.forward();
     _scaleController.forward();
 
-    await Future.delayed(const Duration(milliseconds: 3000));
+    await Future.delayed(const Duration(milliseconds: 2000));
     if (mounted) {
-      context.go('/check-auth');
+      await _checkAuth();
+    }
+  }
+
+  Future<void> _checkAuth() async {
+    try {
+      // Check if user has a token
+      final hasToken = await TokenStore.hasToken();
+      
+      if (!hasToken) {
+        // No token, go to login
+        if (mounted) context.go('/login');
+        return;
+      }
+
+      // Try to get current user
+      final success = await ref.read(authProvider.notifier).getCurrentUser();
+      
+      if (mounted) {
+        if (success) {
+          // Auth successful, go to home
+          context.go('/home');
+        } else {
+          // Auth failed, go to login
+          context.go('/login');
+        }
+      }
+    } catch (e) {
+      // On error, go to login
+      if (mounted) context.go('/login');
     }
   }
 
@@ -94,7 +126,6 @@ class _SplashScreenState extends State<SplashScreen>
                         size: MascotSize.large,
                         state: MascotState.active,
                         showMessage: false,
-                      ),
                       ),
                       SizedBox(height: 32.h),
                       Text(
