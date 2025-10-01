@@ -11,6 +11,12 @@ class EnvironmentConfig {
   static Environment get currentEnvironment => _currentEnvironment;
   
   static String get baseUrl {
+    // Support --dart-define=API_BASE for flexible configuration
+    const dartDefineApiBase = String.fromEnvironment('API_BASE');
+    if (dartDefineApiBase.isNotEmpty) {
+      return dartDefineApiBase;
+    }
+    
     switch (_currentEnvironment) {
       case Environment.development:
         return 'http://localhost:8000/api';
