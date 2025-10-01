@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/services/storage_service.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../auth/providers/auth_provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
-  Future<void> _logout(BuildContext context) async {
-    await StorageService.clearAll();
+  Future<void> _logout(BuildContext context, WidgetRef ref) async {
+    await ref.read(authProvider.notifier).logout();
     if (context.mounted) {
       context.go('/login');
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authProvider);
+    final user = authState.user;
+    final userName = user?['name']?.toString() ?? 'User';
+    final userEmail = user?['email']?.toString() ?? '';
+    final userRole = user?['role']?.toString() ?? 'Freelancer';
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -24,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () => _logout(context),
+            onPressed: () => _logout(context, ref),
             icon: const Icon(Icons.logout),
           ),
         ],
@@ -55,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    'John Doe',
+                    userName,
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
@@ -64,31 +71,33 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 4.h),
                   Text(
-                    'Flutter Developer',
+                    userRole,
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: AppColors.textSecondary,
                     ),
                   ),
-                  SizedBox(height: 8.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        size: 16.sp,
-                        color: AppColors.textSecondary,
-                      ),
-                      SizedBox(width: 4.w),
-                      Text(
-                        'Dhaka, Bangladesh',
-                        style: TextStyle(
-                          fontSize: 14.sp,
+                  if (userEmail.isNotEmpty) ...[
+                    SizedBox(height: 8.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.email,
+                          size: 16.sp,
                           color: AppColors.textSecondary,
                         ),
-                      ),
-                    ],
-                  ),
+                        SizedBox(width: 4.w),
+                        Text(
+                          userEmail,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),
