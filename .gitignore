@@ -51,11 +51,15 @@ jspm_packages/
 /backend/storage/*.key
 /backend/.env
 /backend/.env.backup
+/backend/.env.production
 /backend/.phpunit.result.cache
 /backend/Homestead.json
 /backend/Homestead.yaml
 /backend/npm-debug.log
 /backend/yarn-error.log
+/backend/bootstrap/cache/config.php
+/backend/bootstrap/cache/packages.php
+/backend/bootstrap/cache/services.php
 
 # Flutter
 /frontend/.dart_tool/
