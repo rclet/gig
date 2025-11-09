@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../services/storage_service.dart';
+import '../token_store.dart';
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
 import '../../features/auth/screens/onboarding_screen.dart';
@@ -103,8 +104,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ],
       ),
     ],
-    redirect: (context, state) {
-      final isLoggedIn = StorageService.getAuthToken() != null;
+    redirect: (context, state) async {
+      // Use TokenStore for auth check
+      final token = await TokenStore.getToken();
+      final isLoggedIn = token != null && token.isNotEmpty;
       final isOnboardingCompleted = StorageService.isOnboardingCompleted();
 
       if (state.matchedLocation == '/splash' || state.matchedLocation == '/check-auth') {
@@ -113,17 +116,27 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         return '/home';
       }
 
-      if (!isLoggedIn &&
-          !state.matchedLocation.startsWith('/login') &&
-          !state.matchedLocation.startsWith('/register') &&
-          !state.matchedLocation.startsWith('/onboarding') &&
-          !state.matchedLocation.startsWith('/splash') &&
-          !state.matchedLocation.startsWith('/animation-preview') &&
-          !state.matchedLocation.startsWith('/rclet-demo') &&
-          !state.matchedLocation.startsWith('/demo')) {
+      // Public routes that don't require auth
+      final publicRoutes = [
+        '/login',
+        '/register',
+        '/onboarding',
+        '/splash',
+        '/animation-preview',
+        '/rclet-demo',
+        '/demo',
+      ];
+
+      final isPublicRoute = publicRoutes.any(
+        (route) => state.matchedLocation.startsWith(route),
+      );
+
+      // Redirect to login if not authenticated and trying to access private route
+      if (!isLoggedIn && !isPublicRoute) {
         return '/login';
       }
 
+      // Redirect to home if authenticated and trying to access auth screens
       if (isLoggedIn &&
           (state.matchedLocation.startsWith('/login') ||
            state.matchedLocation.startsWith('/register') ||
