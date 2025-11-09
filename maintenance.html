@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Mode - Gig Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #006A4E 0%, #00523C 100%);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: rgba(255, 107, 53, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: pulse 2s infinite;
+        }
+
+        .icon svg {
+            width: 60px;
+            height: 60px;
+            fill: #FF6B35;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+        }
+
+        .status {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #FF6B35;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .contact {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact a {
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .contact a:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .icon svg {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+        </div>
+        
+        <h1>We'll Be Right Back!</h1>
+        
+        <p>
+            Our platform is currently undergoing scheduled maintenance to improve your experience. 
+            We're working hard to bring you new features and enhancements.
+        </p>
+
+        <div class="status">
+            <div class="status-item">
+                <div class="spinner"></div>
+                <span>Maintenance in progress...</span>
+            </div>
+        </div>
+
+        <div class="contact">
+            <p>
+                If you need immediate assistance, please contact us at:<br>
+                <a href="mailto:support@fix.com.bd">support@fix.com.bd</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

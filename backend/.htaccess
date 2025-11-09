@@ -1,0 +1,27 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Force HTTPS (comment out if SSL not installed yet)
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Redirect all requests to public directory
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ /public/$1 [L,QSA]
+</IfModule>
+
+# Deny access to sensitive files
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "(^composer\.(json|lock)|^package.*\.json|\.env|\.git)$">
+    Require all denied
+</FilesMatch>
+
+# Disable directory browsing
+Options -Indexes
+
+# Enable error pages
+ErrorDocument 404 /public/index.php
+ErrorDocument 500 /public/index.php

@@ -1,0 +1,50 @@
+# Cron Jobs Configuration for Gig Marketplace on Namecheap
+# Domain: fix.com.bd
+#
+# Copy these cron jobs to your cPanel Cron Jobs section
+# Replace 'username' with your actual cPanel username
+# ================================================================
+
+# Laravel Scheduler (runs every minute)
+# This handles all scheduled tasks defined in app/Console/Kernel.php
+* * * * * cd /home/username/public_html && php artisan schedule:run >> /dev/null 2>&1
+
+# Database Backup (daily at 2:00 AM)
+0 2 * * * cd /home/username && bash backup_namecheap.sh >> /home/username/backups/backup.log 2>&1
+
+# Clear old logs (weekly on Sunday at 3:00 AM)
+0 3 * * 0 cd /home/username/public_html && find storage/logs -name "*.log" -mtime +30 -delete
+
+# Clear application cache (daily at 4:00 AM)
+0 4 * * * cd /home/username/public_html && php artisan cache:clear >> /dev/null 2>&1
+
+# Process queued jobs (every 5 minutes)
+# Note: Only use this if you're using database queue driver
+*/5 * * * * cd /home/username/public_html && php artisan queue:work --stop-when-empty >> /dev/null 2>&1
+
+# Clear session files (daily at 5:00 AM)
+0 5 * * * cd /home/username/public_html && find storage/framework/sessions -name "sess_*" -mtime +1 -delete
+
+# Clear expired password reset tokens (daily at 6:00 AM)
+0 6 * * * cd /home/username/public_html && php artisan auth:clear-resets >> /dev/null 2>&1
+
+# ================================================================
+# INSTRUCTIONS FOR CPANEL:
+# ================================================================
+# 
+# 1. Log in to your cPanel
+# 2. Go to "Advanced" → "Cron Jobs"
+# 3. For each cron job above:
+#    a. Select the appropriate time interval OR use "Common Settings: Once Per Minute"
+#    b. Paste the command in the "Command" field
+#    c. Replace 'username' with your actual cPanel username
+#    d. Click "Add New Cron Job"
+#
+# IMPORTANT NOTES:
+# ================================================================
+# - The Laravel scheduler (first job) is REQUIRED
+# - Other jobs are optional but recommended
+# - Email notifications can be configured in cPanel
+# - Test commands via SSH before adding to cron
+# - Monitor cron execution in cPanel "Cron Jobs" logs
+# ================================================================

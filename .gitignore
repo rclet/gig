@@ -122,3 +122,7 @@ storage/app/public/
 
 # Docker
 docker-compose.override.yml
+# Deployment artifacts
+deploy_package/
+gig_marketplace_namecheap_*.tar.gz
+QUICK_REFERENCE.txt

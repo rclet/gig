@@ -226,6 +226,28 @@ php artisan test
 flutter test
 ```
 
+## 🚀 Deployment to Namecheap (fix.com.bd)
+
+### Quick Deployment
+```bash
+# 1. Prepare deployment package
+./deploy_to_namecheap.sh
+
+# 2. Upload deploy_package/* to your hosting via FTP
+# 3. Follow QUICK_START_NAMECHEAP.md for setup
+```
+
+### Deployment Resources
+- **[Quick Start Guide](QUICK_START_NAMECHEAP.md)** - 30-minute deployment
+- **[Complete Guide](NAMECHEAP_DEPLOYMENT.md)** - Detailed instructions
+- **[Deployment Checklist](DEPLOYMENT_CHECKLIST.md)** - Don't miss a step
+- **[Scripts Documentation](DEPLOYMENT_SCRIPTS_README.md)** - All scripts explained
+
+### Deployment Tools
+- `deploy_to_namecheap.sh` - Create deployment package
+- `backup_namecheap.sh` - Backup database and files
+- `diagnose_server.sh` - Troubleshoot server issues
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
