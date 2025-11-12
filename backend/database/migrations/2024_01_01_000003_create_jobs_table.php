@@ -39,7 +39,11 @@ return new class extends Migration
             $table->index(['category_id', 'status']);
             $table->index(['is_featured', 'status']);
             $table->index(['budget_min', 'budget_max']);
-            $table->fullText(['title', 'description']);
+            
+            // Only create fulltext index for MySQL
+            if (config('database.default') === 'mysql') {
+                $table->fullText(['title', 'description']);
+            }
         });
     }
 
