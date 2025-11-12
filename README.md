@@ -115,6 +115,17 @@ frontend/
    php artisan serve
    ```
 
+5. **Run in Agent Mode** (optional - for queue processing)
+   ```bash
+   # Start Redis
+   sudo service redis-server start
+   
+   # Start Horizon (queue worker supervisor)
+   php artisan horizon
+   ```
+   
+   See [AGENT_MODE.md](AGENT_MODE.md) for detailed instructions on running in agent mode.
+
 ### Frontend Setup
 
 1. **Install dependencies**
